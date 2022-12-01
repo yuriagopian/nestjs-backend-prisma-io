@@ -34,4 +34,23 @@ export class BookService {
       }
     })
   }
+
+  async update(id: string, data: BookDTO) {
+    const bookExists = await this.prisma.book.findFirst({
+      where: {
+        id
+      }
+    })
+
+    if (!bookExists) {
+      throw new Error('Book does not exist');
+    }
+
+    return await this.prisma.book.update({
+      data,
+      where: {
+        id
+      }
+    })
+  }
 }
