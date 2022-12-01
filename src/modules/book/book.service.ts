@@ -22,4 +22,16 @@ export class BookService {
 
     throw new Error('Book already exists');
   }
+
+  async list() {
+    return await this.prisma.book.findMany()
+  }
+
+  async findById(id: string) {
+    return await this.prisma.book.findUnique({
+      where: {
+        id: id,
+      }
+    })
+  }
 }
